@@ -15,11 +15,11 @@ function ajoutPortfolio(data) {
   }
 }
 
-fetch("http://localhost:5678/api/works");
-.then(reponse => reponse.json());
+fetch("http://localhost:5678/api/works")
+  .then((reponse) => reponse.json())
 
-.then(data => {
-  console.log(data);
+  .then((data) => {
+    console.log(data);
 
-  ajoutPortfolio(data);
-});
+    ajoutPortfolio(data);
+  });
