@@ -1,30 +1,35 @@
-const categorieObjet = document.querySelector(".categorieObjet");
+//constante boutton category
+const categorieObjets = document.querySelector(".categorieObjets");
 
 const categorieAppartements = document.querySelector(".categorieAppartements");
 
 const categorieHR = document.querySelector(".catergorieHotelsAndRestaurants");
 
-categorieObjet.addEventListener("click", function () {
+//fonction filtre objets
+categorieObjets.addEventListener("click", function () {
   const objetFilter = Objets.filter(function (category) {
     return (category.id = 1);
   });
   console.log(objetFilter);
 });
 
+//fonction filtre appartements
 categorieAppartements.addEventListener("click", function () {
-  const AppartementsFilter = Appartements.filter(function (works) {
-    return (works.id = 2);
+  const AppartementsFilter = Appartements.filter(function (category) {
+    return (category.id = 2);
   });
   console.log(AppartementsFilter);
 });
 
+//fonction filtre hotels & restaurants
 categorieHR.addEventListener("click", function () {
-  const categorieHRFilter = categorieHR.filter(function (works) {
-    return (works.id = 3);
+  const categorieHRFilter = categorieHR.filter(function (category) {
+    return (category.id = 3);
   });
   console.log(categorieHRFilter);
 });
 
+// fetch category
 fetch("http://localhost:5678/api/categories")
   .then((reponse) => {
     console.log("premier .then");
