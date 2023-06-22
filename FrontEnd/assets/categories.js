@@ -5,6 +5,16 @@ const categorieAppartements = document.querySelector(".categorieAppartements");
 
 const categorieHR = document.querySelector(".catergorieHotelsAndRestaurants");
 
+//const categorieTout = document.querySelector(".categorieNone");
+
+//fonction aucun filtre
+//categorieNone.addEventListener("click", function () {
+//const NoneFilter = None.filter(function (category) {
+//return (category.userId = 1);
+// });
+//console.log(objetFilter);
+//});
+
 //fonction filtre objets
 categorieObjets.addEventListener("click", function () {
   const objetFilter = Objets.filter(function (category) {
