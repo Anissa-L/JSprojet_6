@@ -18,7 +18,7 @@ const categorieHR = document.querySelector(".catergorieHotelsAndRestaurants");
 //fonction filtre objets
 categorieObjets.addEventListener("click", function () {
   const objetFilter = Objets.filter(function (category) {
-    return (category.id = 1);
+    return category.id == 1;
   });
   console.log(objetFilter);
 });
@@ -26,7 +26,7 @@ categorieObjets.addEventListener("click", function () {
 //fonction filtre appartements
 categorieAppartements.addEventListener("click", function () {
   const AppartementsFilter = Appartements.filter(function (category) {
-    return (category.id = 2);
+    return category.id == 2;
   });
   console.log(AppartementsFilter);
 });
@@ -34,7 +34,7 @@ categorieAppartements.addEventListener("click", function () {
 //fonction filtre hotels & restaurants
 categorieHR.addEventListener("click", function () {
   const categorieHRFilter = categorieHR.filter(function (category) {
-    return (category.id = 3);
+    return category.id == 3;
   });
   console.log(categorieHRFilter);
 });
