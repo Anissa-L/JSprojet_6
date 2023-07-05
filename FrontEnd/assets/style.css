@@ -225,17 +225,17 @@ li:hover {
   width: 100%;
 }
 
-.boutton_categorie {
+.boutton_categories {
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 10px;
   margin-bottom: 51px;
 }
-.categorieNone,
-.categorieObjets,
-.categorieAppartements,
-.catergorieHotelsAndRestaurants {
+.objets,
+.appartements,
+.hotelsEtRestaurants,
+.tous {
   height: 37px;
   border-radius: 60px;
   border: 1px solid #1d6154;
@@ -249,28 +249,28 @@ li:hover {
   padding-bottom: 9px;
 }
 
-.categorieNone {
+.tous {
   padding-left: 28px;
   padding-right: 30px;
 }
 
-.categorieObjets {
+.objets {
   padding-left: 20px;
   padding-right: 22px;
 }
 
-.categorieAppartements {
+.appartements {
   padding-left: 14px;
   padding-right: 15px;
 }
-.catergorieHotelsAndRestaurants {
+.hotelsEtRestaurants {
   padding-left: 9px;
   padding-right: 11px;
 }
-.categorieNone:hover,
-.categorieObjets:hover,
-.categorieAppartements:hover,
-.catergorieHotelsAndRestaurants:hover {
+.tous:hover,
+.objets:hover,
+.appartements:hover,
+.hotelsEtRestaurants:hover {
   color: white;
   background-color: #1d6154;
 }
