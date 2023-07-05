@@ -67,13 +67,13 @@ function filtrerParCategorie(categorieId) {
   const figures = document.querySelectorAll(".gallery figure");
 
   figures.forEach((figure) => {
-    const tag = figure.getAttribute("id");
+    const name = figure.getAttribute("id");
 
-    if (tag === "Objets" && categorieId === 1) {
+    if (name === "Objets" && categorieId === 1) {
       figure.style.display = "block";
-    } else if (tag === "Appartements" && categorieId === 2) {
+    } else if (name === "Appartements" && categorieId === 2) {
       figure.style.display = "block";
-    } else if (tag === "Hotels & restaurants" && categorieId === 3) {
+    } else if (name === "Hotels & restaurants" && categorieId === 3) {
       figure.style.display = "block";
     } else {
       figure.style.display = "none";
