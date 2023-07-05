@@ -42,7 +42,72 @@ const boutton_hotelsEtRestaurants = document.querySelector(
   ".hotelsEtRestaurants"
 );
 
+fetch("http://localhost:5678/api/categories")
+  .then((reponse) => {
+    console.log("premier .then");
+    console.log(reponse);
+    return reponse.json();
+  })
+
+  //.then(reponse => reponse.json())
+
+  .then((categories) => {
+    console.log(categories);
+
+    //Auxquelles on applique la fonction createButton
+    categories.forEach((categorie) => {
+      console.log(categorie);
+      ajoutCategories(categorie);
+    });
+  })
+
+  .catch((error) => console.log(`Erreur : ${error}`));
+
 function filtrerParCategorie(categorieId) {
+  const figures = document.querySelectorAll(".gallery figure");
+
+  figures.forEach((figure) => {
+    const tag = figure.getAttribute("id");
+
+    if (tag === "Objets" && categorieId === 1) {
+      figure.style.display = "block";
+    } else if (tag === "Appartements" && categorieId === 2) {
+      figure.style.display = "block";
+    } else if (tag === "Hotels & restaurants" && categorieId === 3) {
+      figure.style.display = "block";
+    } else {
+      figure.style.display = "none";
+    }
+  });
+}
+
+boutton_objets.addEventListener("click", function () {
+  filtrerParCategorie(1);
+});
+
+boutton_appartements.addEventListener("click", function () {
+  filtrerParCategorie(2);
+});
+
+boutton_hotelsEtRestaurants.addEventListener("click", function () {
+  filtrerParCategorie(3);
+});
+
+/*
+boutton_objets.addEventListener("click", () => {
+  const figure = document.querySelectorAll("figure");
+
+  figure.forEach((figure) => {
+    const id = figure.getAttribute("id");
+    if (id === "Objets") {
+      figure.style.display = "block";
+    } else {
+      figure.style.display = "none";
+    }
+  });
+});*/
+
+/* function filtrerParCategorie(categorieId) {
   // Code pour filtrer les données en fonction de l'identifiant de catégorie
   // ...
   console.log("Filtrage par catégorie avec l'ID :", categorieId);
@@ -69,7 +134,7 @@ function filtrerParCategorie(categorieId) {
       figure.style.display = "none";
     }*/
 
-    if (
+/*if (
       tag === "Objets" ||
       tag === "Appartements" ||
       tag === "Hotels & Restaurants"
@@ -78,9 +143,9 @@ function filtrerParCategorie(categorieId) {
     } else {
       figure.style.display = "none";
     }
-  });
-}
-
+  }); 
+}*/
+/*
 // fetch category
 fetch("http://localhost:5678/api/categories")
   .then((reponse) => {
@@ -102,3 +167,4 @@ fetch("http://localhost:5678/api/categories")
   })
 
   .catch((error) => console.log(`Erreur : ${error}`));
+*/
