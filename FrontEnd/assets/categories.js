@@ -1,170 +1,111 @@
-//constante boutton category
-/*const categorieObjets = document.querySelector(".categorieObjets");
+// Get nav Filters
+const filters = document.querySelector(".filtres");
+//const gallery = document.querySelector(".gallery");
 
-const categorieAppartements = document.querySelector(".categorieAppartements");
+async function main() {
+  await getWorks();
+  await getCategories();
+}
 
-const categorieHR = document.querySelector(".catergorieHotelsAndRestaurants");*/
+main();
 
-const boutton_categories = document.querySelector(".boutton_categories");
+async function getWorks(categoryId) {
+  fetch("http://localhost:5678/api/works")
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        console.log("Erreur dans la récupération des données de l'API");
+      }
+    })
+    .then((projects) => {
+      console.log(projects);
+
+      //on vide la gallerie
+      gallery.innerHTML = "";
+
+      projects.forEach((project) => {
+        if (categoryId == project.category.id || categoryId == null) {
+          createProject(project);
+        }
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+// PARTIE FILTRE : fetch pour récupérer les données catégories
+async function getCategories() {
+  fetch("http://localhost:5678/api/categories")
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        console.log("Erreur");
+      }
+    })
+
+    .then((categories) => {
+      console.log(categories);
+      //Auxquelles on applique la fonction createButton
+      categories.forEach((categorie) => {
+        createButton(categorie);
+      });
+    })
+    .then(() => {
+      //on récupère les boutons
+      const buttons = document.querySelectorAll(".filtres button");
+
+      buttons.forEach((button) => {
+        //Pour chaque bouton, au clic
+        button.addEventListener("click", function () {
+          // Get (et Affiche le data-tag)
+          let buttonTag = button.getAttribute("data-tag");
+          console.log(buttonTag);
+
+          //Get catégorie id
+          let categorieId = button.getAttribute("data-id");
+          console.log(categorieId);
+
+          //on enlève, pour chaque bouton la classe is-active
+          buttons.forEach((button) => button.classList.remove("is-active"));
+          //puis on ajoute la classe active au bouton cliqué
+          this.classList.add("is-active");
+          // On récupère les works de l'API en fonction des categories
+          getWorks(categorieId);
+        });
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
 // Fonction pour créer un bouton dans la nav des filtres
-function ajoutCategories(category) {
-  const buttonFilters = document.createElement("button");
-  buttonFilters.setAttribute("data-tag", category.name);
-  buttonFilters.setAttribute("data-id", category.id);
-  buttonFilters.innerText = category.name;
-  //ajout de classes
-  if (category.id === 1) {
-    buttonFilters.classList.add("objets");
-  }
-  if (category.id === 2) {
-    buttonFilters.classList.add("appartements");
-  }
-  if (category.id === 3) {
-    buttonFilters.classList.add("hotelsEtRestaurants");
-  }
-  boutton_categories.appendChild(buttonFilters);
-
-  buttonFilters.addEventListener("click", function () {
-    filtrerParCategorie(category.id);
-  });
+function createButton(categorie) {
+  const buttonFilter = document.createElement("button");
+  buttonFilter.setAttribute("data-tag", categorie.name);
+  buttonFilter.setAttribute("data-id", categorie.id);
+  buttonFilter.classList.add("btn_filter");
+  buttonFilter.innerText = categorie.name;
+  filters.appendChild(buttonFilter);
 }
 
-//création du boutton tous
-const bouttonTous = document.createElement("button");
-bouttonTous.className = "tous";
-bouttonTous.innerText = "Tous";
-boutton_categories.appendChild(bouttonTous);
+// Fonction pour créer un projet dans la galerie
+function createProject(project) {
+  const figureProject = document.createElement("figure");
+  figureProject.setAttribute("data-tag", project.category.name);
+  figureProject.setAttribute("data-id", project.category.id);
 
-const boutton_objets = document.querySelector(".objets");
-const boutton_appartements = document.querySelector(".appartements");
-const boutton_hotelsEtRestaurants = document.querySelector(
-  ".hotelsEtRestaurants"
-);
+  const imageProject = document.createElement("img");
+  imageProject.src = project.imageUrl;
+  imageProject.alt = project.title;
 
-fetch("http://localhost:5678/api/categories")
-  .then((reponse) => {
-    console.log("premier .then");
-    console.log(reponse);
-    return reponse.json();
-  })
+  const figcaptionProject = document.createElement("figcaption");
+  figcaptionProject.innerText = project.title;
 
-  //.then(reponse => reponse.json())
-
-  .then((categories) => {
-    console.log(categories);
-
-    //Auxquelles on applique la fonction createButton
-    categories.forEach((categorie) => {
-      console.log(categorie);
-      ajoutCategories(categorie);
-    });
-  })
-
-  .catch((error) => console.log(`Erreur : ${error}`));
-
-function filtrerParCategorie(categorieId) {
-  const figures = document.querySelectorAll(".gallery figure");
-
-  figures.forEach((figure) => {
-    const name = figure.getAttribute("id");
-
-    if (name === "Objets" && categorieId === 1) {
-      figure.style.display = "block";
-    } else if (name === "Appartements" && categorieId === 2) {
-      figure.style.display = "block";
-    } else if (name === "Hotels & restaurants" && categorieId === 3) {
-      figure.style.display = "block";
-    } else {
-      figure.style.display = "none";
-    }
-  });
+  figureProject.appendChild(imageProject);
+  figureProject.appendChild(figcaptionProject);
+  gallery.appendChild(figureProject);
 }
-
-boutton_objets.addEventListener("click", function () {
-  filtrerParCategorie(1);
-});
-
-boutton_appartements.addEventListener("click", function () {
-  filtrerParCategorie(2);
-});
-
-boutton_hotelsEtRestaurants.addEventListener("click", function () {
-  filtrerParCategorie(3);
-});
-
-/*
-boutton_objets.addEventListener("click", () => {
-  const figure = document.querySelectorAll("figure");
-
-  figure.forEach((figure) => {
-    const id = figure.getAttribute("id");
-    if (id === "Objets") {
-      figure.style.display = "block";
-    } else {
-      figure.style.display = "none";
-    }
-  });
-});*/
-
-/* function filtrerParCategorie(categorieId) {
-  // Code pour filtrer les données en fonction de l'identifiant de catégorie
-  // ...
-  console.log("Filtrage par catégorie avec l'ID :", categorieId);
-
-  const figures = document.querySelectorAll(".gallery figure");
-
-  figures.forEach((figure) => {
-    const tag = figure.getAttribute("id");
-    /*if (tag === "Objets") {
-      figure.style.display = "block";
-    } else {
-      figure.style.display = "none";
-    }
-
-    if (tag === "Appartements") {
-      figure.style.display = "block";
-    } else {
-      figure.style.display = "none";
-    }
-
-    if (tag === "Hotels & Restaurants") {
-      figure.style.display = "block";
-    } else {
-      figure.style.display = "none";
-    }*/
-
-/*if (
-      tag === "Objets" ||
-      tag === "Appartements" ||
-      tag === "Hotels & Restaurants"
-    ) {
-      figure.style.display = "block";
-    } else {
-      figure.style.display = "none";
-    }
-  }); 
-}*/
-/*
-// fetch category
-fetch("http://localhost:5678/api/categories")
-  .then((reponse) => {
-    console.log("premier .then");
-    console.log(reponse);
-    return reponse.json();
-  })
-
-  //.then(reponse => reponse.json())
-
-  .then((categories) => {
-    console.log(categories);
-
-    //Auxquelles on applique la fonction createButton
-    categories.forEach((categorie) => {
-      console.log(categorie);
-      ajoutCategories(categorie);
-    });
-  })
-
-  .catch((error) => console.log(`Erreur : ${error}`));
-*/

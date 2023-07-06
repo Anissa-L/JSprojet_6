@@ -1,6 +1,6 @@
 const gallery = document.querySelector(".gallery");
 
-function ajoutPortfolio(data) {
+function ajoutWorks(data) {
   for (let i = 0; i < data.length; i++) {
     const figure = document.createElement("figure");
     figure.setAttribute("id", data[i].category.name);
@@ -27,7 +27,7 @@ fetch("http://localhost:5678/api/works")
   .then((data) => {
     console.log(data);
 
-    ajoutPortfolio(data);
+    ajoutWorks(data);
   })
 
   .catch((error) => console.log(`Erreur : ${error}`));

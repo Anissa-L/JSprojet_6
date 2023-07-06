@@ -225,54 +225,45 @@ li:hover {
   width: 100%;
 }
 
+.filtres {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  gap: 20px;
+  margin-bottom: 40px;
+  width: 70%;
+}
+
+.btn_filter {
+  padding: 4px 15px 4px 15px;
+  border: 1px solid #1d6154;
+  border-radius: 60px;
+  font-family: "Syne";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: rgba(29, 97, 84, 1);
+  background-color: white;
+}
+
+.btn_filter:hover {
+  background-color: rgba(29, 97, 84, 1);
+  color: #ffffff;
+}
+
+.is-active {
+  background-color: rgba(29, 97, 84, 1);
+  color: #ffffff;
+}
+
 .boutton_categories {
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 10px;
   margin-bottom: 51px;
-}
-.objets,
-.appartements,
-.hotelsEtRestaurants,
-.tous {
-  height: 37px;
-  border-radius: 60px;
-  border: 1px solid #1d6154;
-  background-color: white;
-  color: #1d6154;
-  font-family: "Syne";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  padding-top: 9px;
-  padding-bottom: 9px;
-}
-
-.tous {
-  padding-left: 28px;
-  padding-right: 30px;
-}
-
-.objets {
-  padding-left: 20px;
-  padding-right: 22px;
-}
-
-.appartements {
-  padding-left: 14px;
-  padding-right: 15px;
-}
-.hotelsEtRestaurants {
-  padding-left: 9px;
-  padding-right: 11px;
-}
-.tous:hover,
-.objets:hover,
-.appartements:hover,
-.hotelsEtRestaurants:hover {
-  color: white;
-  background-color: #1d6154;
 }
 
 #contact {
