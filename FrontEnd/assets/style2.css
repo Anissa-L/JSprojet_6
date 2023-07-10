@@ -197,23 +197,30 @@ li:hover {
 #contact h2 {
   margin-bottom: 20px;
 }
-#contact form {
+.form {
   text-align: left;
   margin-top: 30px;
   display: flex;
   flex-direction: column;
 }
 
-#contact input {
+.formControl {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.formControl input {
   height: 50px;
   font-size: 1.2em;
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+.formControl label {
   margin: 2em 0 1em 0;
 }
-#contact textarea {
+.formControl textarea {
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
@@ -221,8 +228,29 @@ li:hover {
   text-align: center;
   text-decoration: underline;
 }
+.formControl small {
+  margin-top: 10px;
+  visibility: hidden;
+}
+.formControl.success input {
+  border: solid;
+  color: #09c372;
+}
 
-input[type="submit"] {
+.formControl.error input {
+  border: solid;
+  color: #ff3860;
+}
+.formControl.error small {
+  color: #ff3860;
+  visibility: visible;
+}
+
+#contact button {
+  height: 50px;
+  font-size: 1.2em;
+  border: transparent;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
   font-family: "Syne";
   font-weight: 700;
   color: white;
@@ -231,6 +259,7 @@ input[type="submit"] {
   width: 180px;
   text-align: center;
   border-radius: 60px;
+  cursor: pointer;
 }
 
 footer nav ul {
