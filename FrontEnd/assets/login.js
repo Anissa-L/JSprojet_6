@@ -74,8 +74,7 @@ const validateInputs = () => {
     console.log(setError);
   } else {
     document.location.href = "index.html";
-    let edit = document.createElement("div");
-    edit.className = "edit";
+    window.localStorage.setItem("result", token);
   }
   /*
   //vérification email
