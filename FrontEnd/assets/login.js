@@ -33,6 +33,7 @@ async function postLogin() {
 
   if (response.ok) {
     sessionStorage.setItem("token", data.token);
+    console.log("token");
     window.location.href = "index.html";
   } else {
     const zoneMessageError = document.querySelector(".error-message");

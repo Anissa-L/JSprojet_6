@@ -148,6 +148,9 @@ header {
   justify-content: space-between;
   margin: 50px 0;
 }
+.connect-login {
+  font-weight: bold;
+}
 section {
   margin: 50px 0;
 }
