@@ -267,3 +267,8 @@ footer nav ul {
   justify-content: flex-end;
   margin: 2em;
 }
+
+.error-message {
+  color: red;
+  font-weight: bold;
+}
