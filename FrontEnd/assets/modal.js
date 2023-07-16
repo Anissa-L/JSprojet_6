@@ -25,4 +25,20 @@ function creatEdit() {
   whiteButton.innerText = "publier les changements";
   whiteButton.type = "submit";
   divButton.appendChild(whiteButton);
+
+  const body = document.querySelector("body");
+  body.removeAttribute("max-width");
+  body.removeAttribute("margin");
+
+  const mainContainer = document.createElement("div");
+  mainContainer.classList.add("mainContainer");
+  body.appendChild(mainContainer);
+
+  const header = document.querySelector("header");
+  const main = document.querySelector("main");
+  const footer = document.querySelector("footer");
+
+  mainContainer.appendChild(header);
+  mainContainer.appendChild(main);
+  mainContainer.appendChild(footer);
 }

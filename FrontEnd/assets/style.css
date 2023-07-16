@@ -144,10 +144,10 @@ body {
   margin: auto; /** enlever width et margin pour l'edit**/
 }
 
-/**.main-container {
+.mainContainer {
   max-width: 1140px;
   margin: auto;
-}**/
+}
 
 .edit {
   background-color: #000;
