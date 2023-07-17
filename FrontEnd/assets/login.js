@@ -43,21 +43,9 @@ async function postLogin() {
 
 //Input Vérification
 function validateInputs() {
-  //let eMail = "sophie.bluel@test.tld";
-  //let passWord = "S0phie";
-
   //Obtenir les valeurs des inputs
   const emailValue = email.value.trim();
   const passwordValue = password.value.trim();
-
-  /*if (emailValue != eMail || passwordValue != passWord) {
-    let message = "Erreur dans l’identifiant ou le mot de passe";
-    setError(password, message);
-    console.log(setError);
-  } else {
-    document.location.href = "index.html";
-    window.localStorage.setItem("result", token);
-  }*/
 
   //vérification email
   if (emailValue === "") {
