@@ -2,7 +2,7 @@ let connect = document.querySelector(".connect");
 const storedToken = sessionStorage.getItem("token");
 
 if (storedToken) {
-  connect.innerText = "logout";
+  connect.innerHTML = "<a href='login.html'>logout";
   creatEdit();
 } else {
   connect.innerText = "login";
@@ -16,7 +16,8 @@ function creatEdit() {
 
   const blackButton = document.createElement("button");
   blackButton.classList.add("blackButton");
-  blackButton.innerText = "Mode édition";
+  blackButton.innerHTML =
+    '<i class="fa-regular fa-pen-to-square"></i>' + " " + "Mode édition";
   blackButton.type = "submit";
   divButton.appendChild(blackButton);
 
@@ -27,8 +28,9 @@ function creatEdit() {
   divButton.appendChild(whiteButton);
 
   const body = document.querySelector("body");
-  body.removeAttribute("max-width");
-  body.removeAttribute("margin");
+  body.style.removeProperty("max-width");
+  body.style.margin = "";
+  console.log(body);
 
   const mainContainer = document.createElement("div");
   mainContainer.classList.add("mainContainer");
@@ -38,7 +40,21 @@ function creatEdit() {
   const main = document.querySelector("main");
   const footer = document.querySelector("footer");
 
+  header.insertAdjacentElement("beforebegin", mainContainer);
   mainContainer.appendChild(header);
   mainContainer.appendChild(main);
   mainContainer.appendChild(footer);
+
+  const portfolio = document.getElementById("portfolio");
+  const portfolioTitle = document.querySelector(".portfolioTitle");
+  const modification = document.createElement("div");
+  modification.classList.add("modification");
+  portfolio.appendChild(modification);
+  portfolioTitle.insertAdjacentElement("beforebegin", modification);
+  modification.appendChild(portfolioTitle);
+
+  const modifA = document.createElement("a");
+  modifA.innerHTML =
+    '<i class="fa-regular fa-pen-to-square"></i>' + " " + "modifier";
+  modification.appendChild(modifA);
 }

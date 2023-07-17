@@ -78,6 +78,7 @@ function validateInputs() {
   if (passwordValue === "") {
     let message = "Mot de passe incorrect";
     setError(password, message);
+    console.log(message);
     return false;
   } else if (passwordValue.length < 5) {
     let message = "Le mot de passe doit contenir au moins 5 caractère.";
@@ -94,15 +95,12 @@ function validateInputs() {
 function setSuccess(element) {
   const formControl = element.parentElement;
 
-  formControl.classList.add("success");
   formControl.classList.remove("error");
+  formControl.classList.add("success");
 }
 
 //Paramètre de l'email
 function isValidEmail(email) {
-  /*const re =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-] +@ [a-zA-Z0 -9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  return re.test(String(email).toLowerCase());*/
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
 }
@@ -116,6 +114,6 @@ function setError(element, message) {
   small.innerText = message;
 
   //Ajout de la classe error Suppression de la classe success
-  formControl.classList.add("error");
   formControl.classList.remove("success");
+  formControl.classList.add("error");
 }
