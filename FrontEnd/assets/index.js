@@ -121,9 +121,15 @@ function createProjectModal(project) {
   figureModal.setAttribute("data-tag", project.category.name);
   figureModal.setAttribute("data-id", project.category.id);
 
+  const iconBox = document.createElement("div");
+  iconBox.classList.add("icon-box");
+  iconBox.innerHTML = "<i class='fa-solid fa-trash-can modalTrash'></i>";
+
   const imageModal = document.createElement("img");
   imageModal.src = project.imageUrl;
   imageModal.alt = project.title;
+
+  figureModal.appendChild(iconBox);
 
   const figcaptionModal = document.createElement("figcaption");
   figcaptionModal.innerText = "éditer";
@@ -189,6 +195,13 @@ function creatEdit() {
   modifA.href = "#modal1";
   modifA.classList.add("jsModal");
   modification.appendChild(modifA);
+
+  const figureImage = document.querySelector(".figure-image");
+  const modifText = document.createElement("p");
+  modifText.innerHTML =
+    '<i class="fa-regular fa-pen-to-square"></i>' + " " + "modifier";
+  modifText.classList.add("modifText");
+  figureImage.appendChild(modifText);
 
   const filtres = document.querySelector(".filtres");
   filtres.style.display = "none";
