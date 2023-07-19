@@ -1,5 +1,6 @@
 //WORKS
 const gallery = document.querySelector(".gallery");
+const miniGallery = document.querySelector(".miniGallery");
 
 //CATEGORIES
 
@@ -31,6 +32,7 @@ async function getWorks(categoryId) {
       projects.forEach((project) => {
         if (categoryId == project.category.id || categoryId == null) {
           createProject(project);
+          createProjectModal(project);
         }
       });
     })
@@ -114,6 +116,22 @@ function createProject(project) {
   gallery.appendChild(figureProject);
 }
 
+function createProjectModal(project) {
+  const figureModal = document.createElement("figure");
+  figureModal.setAttribute("data-tag", project.category.name);
+  figureModal.setAttribute("data-id", project.category.id);
+
+  const imageModal = document.createElement("img");
+  imageModal.src = project.imageUrl;
+  imageModal.alt = project.title;
+
+  const figcaptionModal = document.createElement("figcaption");
+  figcaptionModal.innerText = "éditer";
+
+  figureModal.appendChild(imageModal);
+  figureModal.appendChild(figcaptionModal);
+  miniGallery.appendChild(figureModal);
+}
 //MODAL
 
 let connect = document.querySelector(".connect");

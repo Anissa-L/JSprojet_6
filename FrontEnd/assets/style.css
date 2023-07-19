@@ -292,9 +292,9 @@ li:hover {
   position: relative;
   overflow: auto;
   width: 600px;
-  max-width: calc(100vw- 20px);
-  max-height: calc(100vh- 20px);
-  padding: 20px;
+  max-width: calc(100vw - 20px);
+  max-height: calc(100vh - 20px);
+  padding: 40px;
   border-radius: 10px;
   background-color: #ffffff;
 }
@@ -304,7 +304,8 @@ li:hover {
   border: none;
   background-color: transparent;
   font-weight: bold;
-  right: 25px;
+  right: 30px;
+  top: 30px;
 }
 
 .modalMain {
@@ -316,21 +317,39 @@ li:hover {
 
 .title-modal {
   font-family: Work Sans;
-  font-weight: 400;
+  font-weight: 200;
+  font-size: 26px;
   color: #000;
-  margin-bottom: 20px;
+  padding-bottom: 50px;
+  padding-top: 30px;
 }
 
 .miniGallery {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 0.15fr 0.15fr 0.15fr 0.15fr 0.15fr;
+  grid-template-rows: 0.25fr 0.25fr 0.25fr;
+  grid-row-gap: 18px;
+  padding-bottom: 30px;
+}
+
+.miniGallery img {
+  width: 90%;
+  height: 90%;
+}
+
+.miniGallery figcaption {
+  margin-bottom: 2px;
 }
 
 .hr {
   border: none;
   color: #b3b3b3;
-  width: 420px;
+  width: 440px;
   height: 0px;
   border: 1px solid #b3b3b3;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .buttonModal {
@@ -346,12 +365,12 @@ li:hover {
   text-align: center;
   border-radius: 60px;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-bottom: 27px;
 }
 
 .text-modal {
   color: crimson;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .gallery {
