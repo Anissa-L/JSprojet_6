@@ -1,38 +1,6 @@
 //WORKS
 const gallery = document.querySelector(".gallery");
 
-function ajoutWorks(data) {
-  for (let i = 0; i < data.length; i++) {
-    const figure = document.createElement("figure");
-    figure.setAttribute("id", data[i].category.name);
-    const img = document.createElement("img");
-    img.src = data[i].imageUrl;
-    const figcaption = document.createElement("figcaption");
-    figcaption.innerHTML = data[i].title;
-
-    figure.appendChild(img);
-    figure.appendChild(figcaption);
-    gallery.appendChild(figure);
-  }
-}
-
-fetch("http://localhost:5678/api/works")
-  .then((reponse) => {
-    console.log("premier .then");
-    console.log(reponse);
-    return reponse.json();
-  })
-
-  //.then(reponse => reponse.json())
-
-  .then((data) => {
-    console.log(data);
-
-    ajoutWorks(data);
-  })
-
-  .catch((error) => console.log(`Erreur : ${error}`));
-
 //CATEGORIES
 
 // Get nav Filters
@@ -152,13 +120,26 @@ let connect = document.querySelector(".connect");
 const storedToken = sessionStorage.getItem("token");
 
 if (storedToken) {
-  connect.innerHTML = "<a href='login.html'>logout";
+  connect.innerHTML = "<a class='logout'href='login.html'>logout</a>";
+
+  const logout = document.querySelector(".logout");
+  logout.addEventListener("click", (e) => {
+    e.preventDefault();
+    sessionStorage.removeItem("token");
+    window.location.href = "index.html";
+  });
+
   creatEdit();
   creatModal();
 }
 
 function creatEdit() {
   const divEdit = document.querySelector(".edit");
+  divEdit.style.display = "flex";
+
+  const body = document.querySelector("body");
+  body.style.paddingTop = "43px";
+
   const divButton = document.createElement("div");
   divButton.classList.add("button");
   divEdit.appendChild(divButton);
@@ -175,24 +156,6 @@ function creatEdit() {
   whiteButton.innerText = "publier les changements";
   whiteButton.type = "submit";
   divButton.appendChild(whiteButton);
-
-  const body = document.querySelector("body");
-  body.style.removeProperty("max-width");
-  body.style.margin = "";
-  console.log(body);
-
-  const mainContainer = document.createElement("div");
-  mainContainer.classList.add("mainContainer");
-  body.appendChild(mainContainer);
-
-  const header = document.querySelector("header");
-  const main = document.querySelector("main");
-  const footer = document.querySelector("footer");
-
-  header.insertAdjacentElement("beforebegin", mainContainer);
-  mainContainer.appendChild(header);
-  mainContainer.appendChild(main);
-  mainContainer.appendChild(footer);
 
   const portfolio = document.getElementById("portfolio");
   const portfolioTitle = document.querySelector(".portfolioTitle");

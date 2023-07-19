@@ -236,8 +236,8 @@ li:hover {
   visibility: hidden;
 }
 .formControl.success input {
-  border: solid;
-  color: #09c372;
+  /*border: solid;
+  color: #09c372;*/
 }
 
 .formControl.error input {
