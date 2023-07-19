@@ -216,14 +216,16 @@ function creatEdit() {
 
 function creatModal() {
   let modal = null;
+  const focusableSelector = "button, a, input, textarea";
+  let focusables = [];
 
   const openModal = function (e) {
     e.preventDefault();
-    const target = document.querySelector(e.target.getAttribute("href"));
-    target.style.display = null;
-    target.removeAttribute("aria-hidden");
-    target.setAttribute("aria-modal", "true");
-    modal = target;
+    modal = document.querySelector(e.target.getAttribute("href"));
+    focusables = Array.from(modal.querySelectorAll(focusableSelector));
+    modal.style.display = null;
+    modal.removeAttribute("aria-hidden");
+    modal.setAttribute("aria-modal", "true");
     modal.addEventListener("click", closeModal);
     modal
       .querySelector(".js-modal-close")
@@ -253,7 +255,29 @@ function creatModal() {
     e.stopPropagation();
   };
 
+  const focusInModal = function (e) {
+    e.preventDefault();
+    let index = focusables.findIndex(
+      (f) => f === modal.querySelector(":focus")
+    );
+    index++;
+    if (index >= focusables.length) {
+      index = 0;
+    }
+    focusables[index].focus();
+    console.log(index);
+  };
+
   document.querySelectorAll(".jsModal").forEach((a) => {
     a.addEventListener("click", openModal);
+  });
+
+  window.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" || e.key === "Esc") {
+      closeModal(e);
+    }
+    if (e.key === "Tab" && modal !== null) {
+      focusInModal(e);
+    }
   });
 }
