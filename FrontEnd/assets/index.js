@@ -116,6 +116,7 @@ function createProject(project) {
   gallery.appendChild(figureProject);
 }
 
+// Fonction pour créer un projet dans la mini-galerie
 function createProjectModal(project) {
   const figureModal = document.createElement("figure");
   figureModal.setAttribute("data-tag", project.category.name);
@@ -137,6 +138,8 @@ function createProjectModal(project) {
   figureModal.appendChild(imageModal);
   figureModal.appendChild(figcaptionModal);
   miniGallery.appendChild(figureModal);
+
+  //Boutton trash
 }
 //MODAL
 
@@ -274,4 +277,42 @@ function creatModal() {
       focusInModal(e);
     }
   });
+}
+
+if (createProjectModal) {
+  function trash() {
+    const figure = document.querySelector(".miniGallery figure");
+    const trashIcon = document.querySelector(".icon-box");
+
+    trashIcon.addEventListener("click", async function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const figureId = figure.getAttribute("data-id");
+
+      // Supprime l'image du DOM.
+      figure.remove();
+      const monToken = sessionStorage.getItem("token");
+      let response = await fetch(
+        `http://localhost:5678/api/works/${figureId}`,
+        {
+          method: "DELETE",
+          headers: {
+            accept: "*/*",
+            Authorization: `Bearer ${monToken}`,
+          },
+        }
+      );
+      console.log(response);
+
+      if (response.ok) {
+        // if HTTP-status is 200-299
+        console.log(response);
+
+        alert("Photo supprimée avec succès");
+      } else {
+        alert("Échec de suppression");
+      }
+    });
+  }
+  console.log(trash);
 }
