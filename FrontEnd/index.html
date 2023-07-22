@@ -72,12 +72,54 @@
             <button class="js-modal-close">
               <i class="fa-solid fa-x"></i>
             </button>
+
             <div class="modalMain">
-              <h1 class="title-modal">Galerie photo</h1>
-              <div class="miniGallery"></div>
-              <hr class="hr" />
-              <button class="buttonModal">Ajouter une photo</button>
-              <p class="text-modal">Supprimer la gallerie</p>
+              <!--partie gallerie modal-->
+              <div class="galleryModal" style="display: none">
+                <h2 class="title-modal">Galerie photo</h2>
+                <div class="miniGallery"></div>
+                <hr class="hr" />
+                <button class="buttonModal">Ajouter une photo</button>
+                <p class="text-modal">Supprimer la gallerie</p>
+              </div>
+              <!--jusqu'ici-->
+              <!--partie ajout photo-->
+              <div class="photoModal" style="display: flex">
+                <h2 class="titleAjoutPhoto">Ajout photo</h2>
+                <form
+                  action="upload.php"
+                  method="post"
+                  enctype="multipart/form-data"
+                  class="formPhoto"
+                >
+                  <div class="boxPhoto">
+                    <div class="buttonInput">
+                      <input
+                        type="file"
+                        class="input-file"
+                        accept="image/png, image/jpg"
+                        multiple
+                      />
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    name="title"
+                    id="title"
+                    placeholder="Titre"
+                  />
+                  <select name="category" id="category">
+                    <option value="Objets">Objets</option>
+                    <option value="Appartements">Appartements</option>
+                    <option value="Hotels & restaurants">
+                      Hotels & restaurants
+                    </option>
+                  </select>
+                  <hr class="hrPhoto" />
+                  <input type="submit" value="Envoyer" class="buttonPhoto" />
+                </form>
+              </div>
+              <!--jusqu'ici-->
             </div>
           </div>
         </aside>

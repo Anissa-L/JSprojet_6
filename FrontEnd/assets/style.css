@@ -328,7 +328,7 @@ li:hover {
   font-weight: 200;
   font-size: 26px;
   color: #000;
-  padding-bottom: 50px;
+  padding-bottom: 40px;
   padding-top: 30px;
 }
 
@@ -375,10 +375,17 @@ li:hover {
   margin-bottom: 2px;
 }
 
+.galleryModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .hr {
   border: none;
   color: #b3b3b3;
-  width: 440px;
+  width: 420px;
   height: 0px;
   border: 1px solid #b3b3b3;
   margin-bottom: 40px;
@@ -415,6 +422,80 @@ li:hover {
 
 .gallery img {
   width: 100%;
+}
+
+/*partie ajout photo*/
+.photoModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.titleAjoutPhoto {
+  font-family: Work Sans;
+  font-weight: 400;
+  font-size: 26px;
+  color: #000;
+  padding-bottom: 20px;
+  padding-top: 30px;
+}
+
+.boxPhoto {
+  width: 420px;
+  height: 169px;
+  background-color: #e8f1f6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.input-file {
+}
+
+.buttonInput {
+  height: 50px;
+  font-size: 1.2em;
+  border: transparent;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  font-family: "Syne";
+  font-weight: 700;
+  color: white;
+  background-color: #cbd6dc;
+  width: 42%;
+  text-align: center;
+  border-radius: 60px;
+  cursor: pointer;
+}
+
+.formPhoto {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.hrPhoto {
+  border: none;
+  color: #b3b3b3;
+  width: 420px;
+  height: 0px;
+  border: 1px solid #b3b3b3;
+}
+
+.buttonPhoto {
+  height: 50px;
+  font-size: 1.2em;
+  border: transparent;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  font-family: "Syne";
+  font-weight: 700;
+  color: white;
+  background-color: #1d6154;
+  width: 42%;
+  text-align: center;
+  border-radius: 60px;
+  cursor: pointer;
+  margin-bottom: 27px;
 }
 
 .filtres {

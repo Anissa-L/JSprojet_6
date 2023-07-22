@@ -159,6 +159,7 @@ if (storedToken) {
   creatEdit();
   creatModal();
   trash();
+  switchModal();
 }
 
 function creatEdit() {
@@ -285,6 +286,7 @@ function trash() {
   const trashIcon = document.querySelector(".icon-box");
 
   trashIcon.addEventListener("click", async function (e) {
+    console.log("click");
     e.preventDefault();
     e.stopPropagation();
     const figureId = figure.getAttribute("data-id");
@@ -312,3 +314,16 @@ function trash() {
   });
 }
 console.log(trash);
+
+//changement de fenêtre
+function switchModal() {
+  const buttonModal = document.querySelector(".buttonModal");
+  const galleryModal = document.querySelector(".galleryModal");
+  const photoModal = document.querySelector(".photoModal");
+
+  buttonModal.addEventListener("click", function () {
+    console.log("click");
+    galleryModal.style.display = "none";
+    photoModal.style.display = "flex";
+  });
+}
