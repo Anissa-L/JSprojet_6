@@ -336,7 +336,7 @@ li:hover {
   width: 100%;
   display: grid;
   justify-content: center;
-  grid-template-columns: 0.15fr 0.15fr 0.15fr 0.15fr 0.15fr;
+  grid-template-columns: 0.16fr 0.16fr 0.16fr 0.16fr 0.16fr;
   grid-template-rows: 0.25fr 0.25fr 0.25fr;
   grid-column-gap: 8px;
   grid-row-gap: 18px;
@@ -373,6 +373,7 @@ li:hover {
 
 .miniGallery figcaption {
   margin-bottom: 2px;
+  margin-top: 2px;
 }
 
 .galleryModal {
@@ -392,7 +393,7 @@ li:hover {
 }
 
 .buttonModal {
-  height: 50px;
+  height: 36px;
   font-size: 1.2em;
   border: transparent;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
@@ -400,7 +401,7 @@ li:hover {
   font-weight: 700;
   color: white;
   background-color: #1d6154;
-  width: 42%;
+  width: 237px;
   text-align: center;
   border-radius: 60px;
   cursor: pointer;
@@ -451,8 +452,15 @@ li:hover {
   align-items: center;
   margin-bottom: 30px;
 }
+
+.icon-photo {
+  font-size: 50px;
+  color: #cbd6dc;
+  margin-bottom: 15px;
+}
+
 .input-file {
-  height: 50px;
+  height: 36px;
   font-size: 1.2em;
   border: transparent;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
@@ -464,20 +472,25 @@ li:hover {
   text-align: center;
   border-radius: 60px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 input[type="file"] {
-  display: none;
+}
+
+.type-photo {
+  color: #444444;
+  font-size: 12px;
 }
 
 .input-title {
   height: 51px;
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-  margin-bottom: 25px;
+  margin-bottom: 30px;
 }
 
 .title-label {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .formPhoto {
@@ -490,18 +503,19 @@ input[type="file"] {
   width: 420px;
   height: 0px;
   border: 1px solid #b3b3b3;
+  margin-top: 10px;
 }
 
-.buttonPhoto {
-  height: 50px;
+#buttonPhoto {
+  height: 36px;
   font-size: 1.2em;
   border: transparent;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
   font-family: "Syne";
   font-weight: 700;
   color: white;
-  background-color: #1d6154;
-  width: 42%;
+  background-color: #a7a7a7;
+  width: 237px;
   text-align: center;
   border-radius: 60px;
   cursor: pointer;

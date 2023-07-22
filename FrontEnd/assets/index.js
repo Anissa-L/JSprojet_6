@@ -141,6 +141,7 @@ function createProjectModal(project) {
 
   //Boutton trash
 }
+
 //MODAL
 
 let connect = document.querySelector(".connect");
