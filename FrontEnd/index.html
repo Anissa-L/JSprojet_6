@@ -93,22 +93,23 @@
                   class="formPhoto"
                 >
                   <div class="boxPhoto">
-                    <div class="buttonInput">
-                      <input
-                        type="file"
-                        class="input-file"
-                        accept="image/png, image/jpg"
-                        multiple
-                      />
-                    </div>
+                    <input
+                      type="file"
+                      id="file"
+                      class="input-file"
+                      accept="image/png, image/jpg"
+                    />
                   </div>
+                  <label for="title" class="title-label">Titre</label>
                   <input
                     type="text"
                     name="title"
                     id="title"
-                    placeholder="Titre"
+                    class="input-title"
+                    placeholder=""
                   />
-                  <select name="category" id="category">
+                  <label for="category" class="title-label">Catégorie</label>
+                  <select name="category" id="category" class="input-title">
                     <option value="Objets">Objets</option>
                     <option value="Appartements">Appartements</option>
                     <option value="Hotels & restaurants">
