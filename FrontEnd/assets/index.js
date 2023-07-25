@@ -10,6 +10,7 @@ const filters = document.querySelector(".filtres");
 async function main() {
   await getWorks();
   await getCategories();
+  await admin();
 }
 
 main();
@@ -26,8 +27,9 @@ async function getWorks(categoryId) {
     .then((projects) => {
       console.log(projects);
 
-      //on vide la gallerie
+      //on vide les galleries
       gallery.innerHTML = "";
+      miniGallery.innerHTML = "";
 
       projects.forEach((project) => {
         if (categoryId == project.category.id || categoryId == null) {
@@ -120,8 +122,9 @@ function createProject(project) {
 function createProjectModal(project) {
   const figureModal = document.createElement("figure");
   figureModal.setAttribute("data-tag", project.category.name);
-  figureModal.setAttribute("data-id", project.category.id);
+  figureModal.setAttribute("data-id", project.id);
 
+  console.log("construction icon-box");
   const iconBox = document.createElement("div");
   iconBox.classList.add("icon-box");
   iconBox.innerHTML = "<i class='fa-solid fa-trash-can modalTrash'></i>";
@@ -139,6 +142,8 @@ function createProjectModal(project) {
   figureModal.appendChild(figcaptionModal);
   miniGallery.appendChild(figureModal);
 
+  trash(figureModal);
+
   //Boutton trash
 }
 
@@ -147,20 +152,22 @@ function createProjectModal(project) {
 let connect = document.querySelector(".connect");
 const storedToken = sessionStorage.getItem("token");
 
-if (storedToken) {
-  connect.innerHTML = "<a class='logout'href='login.html'>logout</a>";
+async function admin() {
+  if (storedToken) {
+    connect.innerHTML = "<a class='logout'href='login.html'>logout</a>";
 
-  const logout = document.querySelector(".logout");
-  logout.addEventListener("click", (e) => {
-    e.preventDefault();
-    sessionStorage.removeItem("token");
-    window.location.href = "index.html";
-  });
+    const logout = document.querySelector(".logout");
+    logout.addEventListener("click", (e) => {
+      e.preventDefault();
+      sessionStorage.removeItem("token");
+      window.location.href = "index.html";
+    });
 
-  creatEdit();
-  creatModal();
-  trash();
-  switchModal();
+    creatEdit();
+    creatModal();
+    //trash();
+    switchModal();
+  }
 }
 
 function creatEdit() {
@@ -282,18 +289,19 @@ function creatModal() {
   });
 }
 
-function trash() {
-  const figure = document.querySelector(".miniGallery figure");
-  const trashIcon = document.querySelector(".icon-box");
+function trash(figureModal) {
+  //const figure = document.querySelector(".miniGallery figure");
+  //const trashIcon = document.querySelector(".icon-box");
+  console.log(figureModal);
 
-  trashIcon.addEventListener("click", async function (e) {
+  figureModal.addEventListener("click", async function (e) {
     console.log("click");
     e.preventDefault();
     e.stopPropagation();
-    const figureId = figure.getAttribute("data-id");
+    const figureId = figureModal.getAttribute("data-id");
 
     // Supprime l'image du DOM.
-    figure.remove();
+    //figure.remove();
     const monToken = sessionStorage.getItem("token");
     let response = await fetch(`http://localhost:5678/api/works/${figureId}`, {
       method: "DELETE",
@@ -309,6 +317,7 @@ function trash() {
       console.log(response);
 
       alert("Photo supprimée avec succès");
+      getWorks(); //on actualise les galeries avec les works fraichement récupérer de l'api
     } else {
       alert("Échec de suppression");
     }
@@ -321,10 +330,19 @@ function switchModal() {
   const buttonModal = document.querySelector(".buttonModal");
   const galleryModal = document.querySelector(".galleryModal");
   const photoModal = document.querySelector(".photoModal");
+  const arrowLeft = document.querySelector(".arrowLeft");
 
   buttonModal.addEventListener("click", function () {
     console.log("click");
     galleryModal.style.display = "none";
     photoModal.style.display = "flex";
+    arrowLeft.style.display = "flex";
+  });
+
+  arrowLeft.addEventListener("click", function () {
+    console.log("click");
+    galleryModal.style.display = "flex";
+    photoModal.style.display = "none";
+    arrowLeft.style.display = "none";
   });
 }

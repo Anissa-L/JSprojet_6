@@ -310,6 +310,7 @@ li:hover {
   position: absolute;
   border: none;
   background-color: transparent;
+  font-size: 18px;
   font-weight: bold;
   right: 30px;
   top: 30px;
@@ -426,6 +427,18 @@ li:hover {
 }
 
 /*partie ajout photo*/
+.arrowLeft {
+  display: none;
+  position: absolute;
+  border: none;
+  background-color: transparent;
+  font-size: 21px;
+  font-weight: bold;
+  left: 30px;
+  top: 30px;
+  cursor: pointer;
+}
+
 .photoModal {
   display: flex;
   flex-direction: column;
