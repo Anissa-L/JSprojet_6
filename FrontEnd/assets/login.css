@@ -235,10 +235,6 @@ li:hover {
   margin-top: 10px;
   visibility: hidden;
 }
-.formControl.success input {
-  /*border: solid;
-  color: #09c372;*/
-}
 
 .formControl.error input {
   border: solid;

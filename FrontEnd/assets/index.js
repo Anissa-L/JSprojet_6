@@ -11,6 +11,7 @@ async function main() {
   await getWorks();
   await getCategories();
   await admin();
+  console.log(admin);
 }
 
 main();
@@ -143,6 +144,7 @@ function createProjectModal(project) {
   miniGallery.appendChild(figureModal);
 
   trash(figureModal);
+  ajoutPhoto();
 
   //Boutton trash
 }
@@ -346,3 +348,79 @@ function switchModal() {
     arrowLeft.style.display = "none";
   });
 }
+
+function ajoutPhoto() {
+  const form = document.getElementById("form");
+  const message = document.getElementById("message");
+  const button = document.getElementById("buttonPhoto");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("click");
+
+    const formData = new FormData();
+    formData.append("file", document.getElementById("file").files[0]);
+    formData.append("title", document.getElementById("title").value);
+    formData.append("category", document.getElementById("category").value);
+
+    const monToken = sessionStorage.getItem("token");
+
+    let response = await fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${monToken}`,
+      },
+      body: formData,
+    });
+
+    console.log(response);
+
+    if (response.ok) {
+      // if HTTP-status is 200-299
+      console.log(response);
+
+      message.innerText = "Formulaire envoyé avec succès";
+      const img = document.createElement("img");
+      img.src = URL.createObjectURL(document.getElementById("file").files[0]);
+      gallery.appendChild(img);
+
+      getWorks(); //on actualise les galeries avec les works fraichement récupérer de l'api
+    } else {
+      message.innerText = "Erreur dans le formulaire ";
+    }
+    this.reset();
+
+    setTimeout(() => {
+      message.innerText = "";
+    }, 2000);
+  });
+}
+
+/*var form = document.forms.namedItem("filePhoto");
+  form.addEventListener(
+    "submit",
+    function (ev) {
+      var oOutput = document.querySelector("div"),
+        oData = new FormData(form);
+
+      oData.append("CustomField", "Données supplémentaires");
+
+      var oReq = new XMLHttpRequest();
+      oReq.open("POST", "stash.php", true);
+      oReq.onload = function (oEvent) {
+        if (oReq.status == 200) {
+          oOutput.innerHTML = "Envoyé&nbsp;!";
+        } else {
+          oOutput.innerHTML =
+            "Erreur " +
+            oReq.status +
+            " lors de la tentative d’envoi du fichier.<br />";
+        }
+      };
+
+      oReq.send(oData);
+      ev.preventDefault();
+    },
+    false
+  );*/

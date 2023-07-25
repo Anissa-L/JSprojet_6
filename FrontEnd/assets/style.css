@@ -487,8 +487,6 @@ li:hover {
   cursor: pointer;
   margin-bottom: 10px;
 }
-input[type="file"] {
-}
 
 .type-photo {
   color: #444444;
@@ -527,13 +525,17 @@ input[type="file"] {
   font-family: "Syne";
   font-weight: 700;
   color: white;
-  background-color: #a7a7a7;
+  background-color: #1d6154;
   width: 237px;
   text-align: center;
   border-radius: 60px;
   cursor: pointer;
   margin-bottom: 27px;
 }
+/*#buttonPhoto:disabled {
+  color: white;
+  background-color: #a7a7a7;
+}*/
 
 .filtres {
   display: flex;
