@@ -60,6 +60,7 @@ async function getCategories() {
       //Auxquelles on applique la fonction createButton
       categories.forEach((categorie) => {
         createButton(categorie);
+        creatOption(categorie);
       });
     })
     .then(() => {
@@ -167,7 +168,6 @@ async function admin() {
 
     creatEdit();
     creatModal();
-    //trash();
     switchModal();
   }
 }
@@ -339,6 +339,7 @@ function switchModal() {
     galleryModal.style.display = "none";
     photoModal.style.display = "flex";
     arrowLeft.style.display = "flex";
+    creatOption();
   });
 
   arrowLeft.addEventListener("click", function () {
@@ -349,20 +350,32 @@ function switchModal() {
   });
 }
 
+function creatOption(categorie) {
+  const category = document.getElementById("category");
+  const option = document.createElement("option");
+  option.setAttribute("data-tag", categorie.name);
+  option.setAttribute("data-id", categorie.id);
+  option.innerText = categorie.name;
+  category.appendChild(option);
+}
+
 function ajoutPhoto() {
   const form = document.getElementById("form");
   const message = document.getElementById("message");
-  const button = document.getElementById("buttonPhoto");
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
     e.stopPropagation();
+
     console.log("click");
+
+    const option = document.createElement("option");
+    const categoriePhoto = option.getAttribute("data-id");
 
     const formData = new FormData();
     formData.append("file", document.getElementById("file").files[0]);
     formData.append("title", document.getElementById("title").value);
-    formData.append("category", document.getElementById("category").value);
+    formData.append("category", categoriePhoto);
 
     const monToken = sessionStorage.getItem("token");
 
