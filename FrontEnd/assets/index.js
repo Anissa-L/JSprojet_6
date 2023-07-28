@@ -353,9 +353,10 @@ function switchModal() {
 function creatOption(categorie) {
   const category = document.getElementById("category");
   const option = document.createElement("option");
-  option.setAttribute("data-tag", categorie.name);
-  option.setAttribute("data-id", categorie.id);
   option.innerText = categorie.name;
+  option.value = categorie.id;
+  option.classList.add("option");
+
   category.appendChild(option);
 }
 
