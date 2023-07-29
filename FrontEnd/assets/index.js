@@ -258,6 +258,14 @@ function creatModal() {
       .querySelector(".js-modal-stop")
       .removeEventListener("click", stopPropagation);
     modal = null;
+
+    //reset modal ajout photo
+    const fileModal = document.getElementById("file");
+    const titleModal = document.getElementById("title");
+    const categoryModal = document.getElementById("category");
+    titleModal.value = "";
+    categoryModal.value = "0";
+    fileModal.value = "";
   };
 
   const stopPropagation = function (e) {
