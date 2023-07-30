@@ -532,10 +532,10 @@ li:hover {
   cursor: pointer;
   margin-bottom: 27px;
 }
-/*#buttonPhoto:disabled {
+#buttonPhoto:disabled {
   color: white;
   background-color: #a7a7a7;
-}*/
+}
 
 .filtres {
   display: flex;

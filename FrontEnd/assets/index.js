@@ -264,7 +264,7 @@ function creatModal() {
     const titleModal = document.getElementById("title");
     const categoryModal = document.getElementById("category");
     titleModal.value = "";
-    categoryModal.value = "0";
+    categoryModal.value = "";
     fileModal.value = "";
   };
 
@@ -347,7 +347,6 @@ function switchModal() {
     galleryModal.style.display = "none";
     photoModal.style.display = "flex";
     arrowLeft.style.display = "flex";
-    creatOption();
   });
 
   arrowLeft.addEventListener("click", function () {
@@ -368,15 +367,36 @@ function creatOption(categorie) {
   category.appendChild(option);
 }
 
+function buttonDisabled() {
+  const buttonPhoto = document.getElementById("buttonPhoto");
+  const fileModal = document.getElementById("file");
+  const titleModal = document.getElementById("title");
+  const optionModal = document.querySelector("option");
+
+  buttonPhoto.disabled = "true";
+
+  if (
+    fileModal.value !== "" &&
+    titleModal.textContent !== "" &&
+    optionModal.selected
+  ) {
+    buttonPhoto.disabled = "false";
+  } else {
+    buttonPhoto.disabled = "true";
+  }
+}
+
 function ajoutPhoto() {
   const form = document.getElementById("form");
   const message = document.getElementById("message");
+
+  buttonDisabled();
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
     e.stopPropagation();
 
-    console.log("click");
+    console.log(form);
 
     const option = document.createElement("option");
     const categoriePhoto = option.getAttribute("data-id");
