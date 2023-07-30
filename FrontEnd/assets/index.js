@@ -386,6 +386,8 @@ function buttonDisabled() {
   }
 }
 
+function créationPhoto() {}
+
 function ajoutPhoto() {
   const form = document.getElementById("form");
   const message = document.getElementById("message");
