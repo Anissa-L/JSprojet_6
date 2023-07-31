@@ -100,6 +100,7 @@
                     <img
                       src="./assets/icons/picture-svgrepo-com 1.svg"
                       alt="icon figma image"
+                      class="icon-photo"
                     />
                     <label for="file" class="file-label"
                       >+ Ajouter une photo</label
@@ -107,6 +108,7 @@
                     <input
                       type="file"
                       id="file"
+                      onchange="inputFiles()"
                       class="input-file"
                       accept="image/png, image/jpg"
                     />

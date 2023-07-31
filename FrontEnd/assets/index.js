@@ -169,6 +169,7 @@ async function admin() {
     creatEdit();
     creatModal();
     switchModal();
+    //buttonDisabled();
   }
 }
 
@@ -367,32 +368,111 @@ function creatOption(categorie) {
   category.appendChild(option);
 }
 
-function buttonDisabled() {
-  const buttonPhoto = document.getElementById("buttonPhoto");
-  const fileModal = document.getElementById("file");
-  const titleModal = document.getElementById("title");
-  const optionModal = document.querySelector("option");
+function inputFiles() {
+  const iconPhoto = document.querySelector(".icon-photo");
+  const typePhoto = document.querySelector(".type-photo");
+  const inputFile = document.getElementById("file");
+  const fileLabel = document.querySelector(".file-label");
+  const boxPhoto = document.querySelector(".boxPhoto");
 
-  buttonPhoto.disabled = "true";
+  inputFile.addEventListener("change", () => {
+    const files = document.getElementById("file").files;
 
-  if (
-    fileModal.value !== "" &&
-    titleModal.textContent !== "" &&
-    optionModal.selected
-  ) {
-    buttonPhoto.disabled = "false";
-  } else {
-    buttonPhoto.disabled = "true";
-  }
+    // Itère sur le tableau de fichiers
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+
+      // Vérifie si le type de fichier commence par "image/"
+      if (!file.type.startsWith("image/")) {
+        // Si le type de fichier ne commence pas par "image/", continue
+        continue;
+      }
+
+      // Crée un nouvel élément `img`
+      const img = document.createElement("img");
+      img.classList.add("imageFile");
+      img.file = file;
+      boxPhoto.appendChild(img);
+
+      // Crée un nouveau lecteur de fichier
+      const reader = new FileReader();
+
+      // Définit l'événement `onload` du lecteur de fichier
+      reader.onload = (e) => {
+        img.src = e.target.result;
+      };
+
+      // Lit le fichier et le convertit en une URL de données
+      reader.readAsDataURL(file);
+      console.log(file);
+    }
+
+    iconPhoto.style.display = "none";
+    typePhoto.style.display = "none";
+    fileLabel.style.display = "none";
+  });
 }
 
-function créationPhoto() {}
+function disabled() {
+  buttonPhoto.disabled = true;
+  buttonPhoto.style.backgroundColor = "#a7a7a7";
+}
+
+function notDisabled() {
+  buttonPhoto.disabled = false;
+  buttonPhoto.style.backgroundColor = "#1d6154";
+}
+
+function buttonDisabled() {
+  const buttonPhoto = document.getElementById("buttonPhoto");
+  const imageFile = document.querySelectorAll(".boxPhoto img");
+  const titleModal = document.getElementById("title");
+  const optionModal = document.querySelector(".option");
+  const inputFile = document.getElementById("file");
+  const category = document.getElementById("category");
+
+  disabled();
+
+  inputFile.addEventListener("change", () => {
+    const file = inputFile.files[0];
+
+    if (file) {
+      notDisabled();
+    } else {
+      disabled();
+    }
+  });
+
+  titleModal.addEventListener("input", () => {
+    buttonPhoto.disabled = titleModal.value === "";
+  });
+
+  category.addEventListener("change", () => {
+    const options = category.querySelectorAll(".option");
+
+    if (options.value > 0) {
+      notDisabled();
+    } else {
+      disabled();
+    }
+  });
+  /*if (imageFile && titleModal.textContent !== "" && optionModal.selected) {
+    buttonPhoto.disabled = false;
+    buttonPhoto.style.backgroundColor = "#1d6154";
+  } else {
+    buttonPhoto.disabled = true;
+    buttonPhoto.style.backgroundColor = "#a7a7a7";
+  }*/
+  console.log(imageFile);
+  console.log(titleModal);
+  console.log(optionModal);
+}
 
 function ajoutPhoto() {
+  inputFiles();
+  buttonDisabled();
   const form = document.getElementById("form");
   const message = document.getElementById("message");
-
-  buttonDisabled();
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();

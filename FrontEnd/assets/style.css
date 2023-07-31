@@ -464,6 +464,14 @@ li:hover {
   justify-content: center;
   align-items: center;
   margin-bottom: 30px;
+  position: relative;
+}
+
+.imageFile {
+  position: absolute;
+  height: 169px;
+  width: 129px;
+  object-fit: contain;
 }
 
 .icon-photo {
@@ -540,10 +548,10 @@ li:hover {
   cursor: pointer;
   margin-bottom: 27px;
 }
-#buttonPhoto:disabled {
+/*#buttonPhoto:disabled {
   color: white;
   background-color: #a7a7a7;
-}
+}*/
 
 .filtres {
   display: flex;
