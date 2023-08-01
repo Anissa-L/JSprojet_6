@@ -425,47 +425,28 @@ function notDisabled() {
 
 function buttonDisabled() {
   const buttonPhoto = document.getElementById("buttonPhoto");
-  const imageFile = document.querySelectorAll(".boxPhoto img");
   const titleModal = document.getElementById("title");
-  const optionModal = document.querySelector(".option");
+  const optionModal = document.querySelector("option");
   const inputFile = document.getElementById("file");
-  const category = document.getElementById("category");
+  const file = inputFile.files[0];
+  const form = [file, titleModal, optionModal];
 
   disabled();
 
-  inputFile.addEventListener("change", () => {
-    const file = inputFile.files[0];
-
-    if (file) {
-      notDisabled();
-    } else {
-      disabled();
-    }
-  });
-
-  titleModal.addEventListener("input", () => {
-    buttonPhoto.disabled = titleModal.value === "";
-  });
-
-  category.addEventListener("change", () => {
-    const options = category.querySelectorAll(".option");
-
-    if (options.value > 0) {
-      notDisabled();
-    } else {
-      disabled();
-    }
-  });
-  /*if (imageFile && titleModal.textContent !== "" && optionModal.selected) {
-    buttonPhoto.disabled = false;
-    buttonPhoto.style.backgroundColor = "#1d6154";
-  } else {
-    buttonPhoto.disabled = true;
-    buttonPhoto.style.backgroundColor = "#a7a7a7";
-  }*/
-  console.log(imageFile);
-  console.log(titleModal);
-  console.log(optionModal);
+  if (file) {
+    form.forEach((element) => {
+      element.addEventListener("keyup", () => {
+        if (file && titleModal.value !== "" && optionModal.value !== "") {
+          notDisabled();
+        } else {
+          disabled();
+        }
+      });
+    });
+    console.log(file);
+    console.log(titleModal);
+    console.log(optionModal);
+  }
 }
 
 function ajoutPhoto() {
@@ -480,13 +461,14 @@ function ajoutPhoto() {
 
     console.log(form);
 
-    const option = document.createElement("option");
-    const categoriePhoto = option.getAttribute("data-id");
+    const file = document.getElementById("file").files[0];
+    const title = document.getElementById("title").value;
+    const option = document.querySelector("option").value;
 
     const formData = new FormData();
-    formData.append("file", document.getElementById("file").files[0]);
-    formData.append("title", document.getElementById("title").value);
-    formData.append("category", categoriePhoto);
+    formData.append("file", file);
+    formData.append("title", title);
+    formData.append("option", option);
 
     const monToken = sessionStorage.getItem("token");
 
