@@ -374,7 +374,7 @@ function inputFiles() {
   const inputFile = document.getElementById("file");
   const fileLabel = document.querySelector(".file-label");
   const boxPhoto = document.querySelector(".boxPhoto");
-
+  const iconCross = document.querySelector(".icon-cross");
   inputFile.addEventListener("change", () => {
     const files = document.getElementById("file").files;
 
@@ -410,6 +410,16 @@ function inputFiles() {
     iconPhoto.style.display = "none";
     typePhoto.style.display = "none";
     fileLabel.style.display = "none";
+    iconCross.style.display = "flex";
+
+    iconCross.addEventListener("click", function () {
+      const imageFile = document.querySelector(".imageFile");
+      iconPhoto.style.display = "flex";
+      typePhoto.style.display = "flex";
+      fileLabel.style.display = "flex";
+      iconCross.style.display = "none";
+      imageFile.style.display = "none";
+    });
   });
 }
 
@@ -429,20 +439,18 @@ function buttonDisabled() {
   const optionModal = document.querySelector("option");
   const inputFile = document.getElementById("file");
   const file = inputFile.files[0];
-  const form = [file, titleModal, optionModal];
 
   disabled();
 
   if (file) {
-    form.forEach((element) => {
-      element.addEventListener("keyup", () => {
-        if (file && titleModal.value !== "" && optionModal.value !== "") {
-          notDisabled();
-        } else {
-          disabled();
-        }
-      });
+    buttonPhoto.addEventListener("change", () => {
+      if (file && titleModal.value !== "" && optionModal.value !== "") {
+        notDisabled();
+      } else {
+        disabled();
+      }
     });
+
     console.log(file);
     console.log(titleModal);
     console.log(optionModal);

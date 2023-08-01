@@ -427,6 +427,7 @@ li:hover {
 }
 
 /*partie ajout photo*/
+
 .arrowLeft {
   display: none;
   position: absolute;
@@ -465,6 +466,14 @@ li:hover {
   align-items: center;
   margin-bottom: 30px;
   position: relative;
+}
+
+.icon-cross {
+  position: absolute;
+  display: none;
+  z-index: 2;
+  right: 13px;
+  top: 10px;
 }
 
 .imageFile {
