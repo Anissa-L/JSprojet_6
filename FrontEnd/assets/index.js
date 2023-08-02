@@ -16,6 +16,7 @@ async function main() {
 
 main();
 
+// projet : tout les projets affichés  ou  affichés par catégorie
 async function getWorks(categoryId) {
   fetch("http://localhost:5678/api/works")
     .then((response) => {
@@ -154,6 +155,7 @@ function createProjectModal(project) {
 let connect = document.querySelector(".connect");
 const storedToken = sessionStorage.getItem("token");
 
+//fonction modification si token
 async function admin() {
   if (storedToken) {
     connect.innerHTML = "<a class='logout'href='login.html'>logout</a>";
@@ -174,6 +176,7 @@ async function admin() {
   }
 }
 
+//création nav bar noir + boutton modifier
 function creatEdit() {
   const divEdit = document.querySelector(".edit");
   divEdit.style.display = "flex";
@@ -225,11 +228,13 @@ function creatEdit() {
   portfolioTitle.style.marginBottom = "3em";
 }
 
+//fonction création fenêtre modal
 function creatModal() {
   let modal = null;
   const focusableSelector = "button, a, input, textarea";
   let focusables = [];
 
+  // fonction ouvrir modal
   const openModal = function (e) {
     e.preventDefault();
     modal = document.querySelector(e.target.getAttribute("href"));
@@ -246,6 +251,7 @@ function creatModal() {
       .addEventListener("click", stopPropagation);
   };
 
+  //fonction fermer modal
   const closeModal = function (e) {
     if (modal === null) return;
     e.preventDefault();
@@ -272,6 +278,7 @@ function creatModal() {
     e.stopPropagation();
   };
 
+  // élément focusable
   const focusInModal = function (e) {
     e.preventDefault();
     let index = focusables.findIndex(
@@ -299,9 +306,8 @@ function creatModal() {
   });
 }
 
+//fonction suppression élément galerie
 function trash(figureModal) {
-  //const figure = document.querySelector(".miniGallery figure");
-  //const trashIcon = document.querySelector(".icon-box");
   console.log(figureModal);
 
   figureModal.addEventListener("click", async function (e) {
@@ -342,6 +348,7 @@ function switchModal() {
   const photoModal = document.querySelector(".photoModal");
   const arrowLeft = document.querySelector(".arrowLeft");
 
+  //vers la fenêtre ajout photo
   buttonModal.addEventListener("click", function () {
     console.log("click");
     galleryModal.style.display = "none";
@@ -350,6 +357,7 @@ function switchModal() {
     disabled();
   });
 
+  //vers la fenêtre mini-gallery
   arrowLeft.addEventListener("click", function () {
     console.log("click");
     galleryModal.style.display = "flex";
@@ -358,6 +366,7 @@ function switchModal() {
   });
 }
 
+//focntion création des options du select category
 function creatOption(categorie) {
   const category = document.getElementById("category");
   const option = document.createElement("option");
@@ -368,6 +377,7 @@ function creatOption(categorie) {
   category.appendChild(option);
 }
 
+//fonction afficher image file input
 function inputFiles() {
   const iconPhoto = document.querySelector(".icon-photo");
   const typePhoto = document.querySelector(".type-photo");
@@ -408,14 +418,17 @@ function inputFiles() {
       console.log(file);
     }
 
+    //cacher les éléments ( icon, boutton, text) et afficher la croix
     iconPhoto.style.display = "none";
     typePhoto.style.display = "none";
     fileLabel.style.display = "none";
     iconCross.style.display = "flex";
 
+    //event sur la croix
     iconCross.addEventListener("click", function () {
       const imageFile = document.querySelector(".imageFile");
 
+      //afficher les éléments ( icon, boutton, text), cacher la croix et supprimer l'image
       iconPhoto.style.display = "flex";
       typePhoto.style.display = "flex";
       fileLabel.style.display = "flex";
@@ -426,16 +439,18 @@ function inputFiles() {
   ajoutPhoto();
 }
 
+//fonction boutton disabled
 function disabled() {
   buttonPhoto.disabled = true;
   buttonPhoto.style.backgroundColor = "#a7a7a7";
 }
-
+//fonction boutton  pas disabled
 function notDisabled() {
   buttonPhoto.disabled = false;
   buttonPhoto.style.backgroundColor = "#1d6154";
 }
 
+//lorsque l'utilisateur modifie un champ alors fonction buttonDisabled appelée
 const titleModal = document.getElementById("title");
 const select = document.getElementById("category");
 const inputFile = document.getElementById("file");
@@ -443,6 +458,7 @@ titleModal.addEventListener("input", buttonDisabled);
 select.addEventListener("selected", buttonDisabled);
 inputFile.addEventListener("change", buttonDisabled);
 
+//fonction comportement boutton
 function buttonDisabled() {
   const titleModal = document.getElementById("title");
   const inputFile = document.getElementById("file");
@@ -450,8 +466,9 @@ function buttonDisabled() {
   const titleNotEmpty = titleModal.value !== "";
   const optionNotNull = select.value !== "0";
 
-  //disabled();
+  disabled();
 
+  //si aucun champ n'est vide  boutton activé sinon boutton désactivé
   if (file && titleNotEmpty && optionNotNull) {
     notDisabled();
     console.log("plus disabled");
@@ -467,6 +484,7 @@ function buttonDisabled() {
   }
 }
 
+//fonction ajouter une photo
 function ajoutPhoto() {
   const titleModal = document.getElementById("title");
   const select = document.getElementById("category");
