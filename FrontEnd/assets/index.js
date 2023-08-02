@@ -145,7 +145,6 @@ function createProjectModal(project) {
   miniGallery.appendChild(figureModal);
 
   trash(figureModal);
-  ajoutPhoto();
 
   //Boutton trash
 }
@@ -169,6 +168,8 @@ async function admin() {
     creatEdit();
     creatModal();
     switchModal();
+    inputFiles();
+    ajoutPhoto();
     //buttonDisabled();
   }
 }
@@ -261,12 +262,10 @@ function creatModal() {
     modal = null;
 
     //reset modal ajout photo
-    const fileModal = document.getElementById("file");
-    const titleModal = document.getElementById("title");
-    const categoryModal = document.getElementById("category");
-    titleModal.value = "";
-    categoryModal.value = "";
-    fileModal.value = "";
+    inputFiles();
+
+    const form = document.getElementById("form");
+    form.reset();
   };
 
   const stopPropagation = function (e) {
@@ -348,6 +347,7 @@ function switchModal() {
     galleryModal.style.display = "none";
     photoModal.style.display = "flex";
     arrowLeft.style.display = "flex";
+    disabled();
   });
 
   arrowLeft.addEventListener("click", function () {
@@ -381,6 +381,7 @@ function inputFiles() {
     // Itère sur le tableau de fichiers
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
+      console.log(files.length);
 
       // Vérifie si le type de fichier commence par "image/"
       if (!file.type.startsWith("image/")) {
@@ -414,13 +415,15 @@ function inputFiles() {
 
     iconCross.addEventListener("click", function () {
       const imageFile = document.querySelector(".imageFile");
+
       iconPhoto.style.display = "flex";
       typePhoto.style.display = "flex";
       fileLabel.style.display = "flex";
       iconCross.style.display = "none";
-      imageFile.style.display = "none";
+      imageFile.remove();
     });
   });
+  ajoutPhoto();
 }
 
 function disabled() {
@@ -433,50 +436,58 @@ function notDisabled() {
   buttonPhoto.style.backgroundColor = "#1d6154";
 }
 
+const titleModal = document.getElementById("title");
+const select = document.getElementById("category");
+const inputFile = document.getElementById("file");
+titleModal.addEventListener("input", buttonDisabled);
+select.addEventListener("selected", buttonDisabled);
+inputFile.addEventListener("change", buttonDisabled);
+
 function buttonDisabled() {
-  const buttonPhoto = document.getElementById("buttonPhoto");
   const titleModal = document.getElementById("title");
-  const optionModal = document.querySelector("option");
   const inputFile = document.getElementById("file");
   const file = inputFile.files[0];
+  const titleNotEmpty = titleModal.value !== "";
+  const optionNotNull = select.value !== "0";
 
-  disabled();
+  //disabled();
 
-  if (file) {
-    buttonPhoto.addEventListener("change", () => {
-      if (file && titleModal.value !== "" && optionModal.value !== "") {
-        notDisabled();
-      } else {
-        disabled();
-      }
-    });
-
+  if (file && titleNotEmpty && optionNotNull) {
+    notDisabled();
+    console.log("plus disabled");
     console.log(file);
-    console.log(titleModal);
-    console.log(optionModal);
+    console.log(titleModal.value);
+    console.log(select.value);
+  } else {
+    disabled();
+    console.log("problème disabled");
+    console.log(file);
+    console.log(titleModal.value);
+    console.log(select.value);
   }
 }
 
 function ajoutPhoto() {
-  inputFiles();
-  buttonDisabled();
-  const form = document.getElementById("form");
+  const titleModal = document.getElementById("title");
+  const select = document.getElementById("category");
+  const buttonPhoto = document.getElementById("buttonPhoto");
   const message = document.getElementById("message");
+  const inputFile = document.getElementById("file");
 
-  form.addEventListener("submit", async function (e) {
+  buttonPhoto.addEventListener("submit", async function (e) {
     e.preventDefault();
     e.stopPropagation();
 
-    console.log(form);
+    console.log(buttonPhoto);
 
-    const file = document.getElementById("file").files[0];
-    const title = document.getElementById("title").value;
-    const option = document.querySelector("option").value;
+    addTitle = titleModal.value;
+    addCategory = select.value;
+    addImageValue = e.target.result;
 
     const formData = new FormData();
-    formData.append("file", file);
-    formData.append("title", title);
-    formData.append("option", option);
+    formData.append("image", addImageValue);
+    formData.append("title", addTitle);
+    formData.append("category", addCategory);
 
     const monToken = sessionStorage.getItem("token");
 
@@ -495,9 +506,6 @@ function ajoutPhoto() {
       console.log(response);
 
       message.innerText = "Formulaire envoyé avec succès";
-      const img = document.createElement("img");
-      img.src = URL.createObjectURL(document.getElementById("file").files[0]);
-      gallery.appendChild(img);
 
       getWorks(); //on actualise les galeries avec les works fraichement récupérer de l'api
     } else {
@@ -510,31 +518,3 @@ function ajoutPhoto() {
     }, 2000);
   });
 }
-
-/*var form = document.forms.namedItem("filePhoto");
-  form.addEventListener(
-    "submit",
-    function (ev) {
-      var oOutput = document.querySelector("div"),
-        oData = new FormData(form);
-
-      oData.append("CustomField", "Données supplémentaires");
-
-      var oReq = new XMLHttpRequest();
-      oReq.open("POST", "stash.php", true);
-      oReq.onload = function (oEvent) {
-        if (oReq.status == 200) {
-          oOutput.innerHTML = "Envoyé&nbsp;!";
-        } else {
-          oOutput.innerHTML =
-            "Erreur " +
-            oReq.status +
-            " lors de la tentative d’envoi du fichier.<br />";
-        }
-      };
-
-      oReq.send(oData);
-      ev.preventDefault();
-    },
-    false
-  );*/
