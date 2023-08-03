@@ -171,8 +171,7 @@ async function admin() {
     creatModal();
     switchModal();
     inputFiles();
-    ajoutPhoto();
-    //buttonDisabled();
+    ajoutWorks();
   }
 }
 
@@ -268,7 +267,6 @@ function creatModal() {
     modal = null;
 
     //reset modal ajout photo
-    inputFiles();
 
     const form = document.getElementById("form");
     form.reset();
@@ -389,34 +387,34 @@ function inputFiles() {
     const files = document.getElementById("file").files;
 
     // Itère sur le tableau de fichiers
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      console.log(files.length);
+    //for (let i = 0; i < files.length; i++) {
+    const file = files[0];
+    console.log(files.length);
 
-      // Vérifie si le type de fichier commence par "image/"
-      if (!file.type.startsWith("image/")) {
-        // Si le type de fichier ne commence pas par "image/", continue
-        continue;
-      }
-
-      // Crée un nouvel élément `img`
-      const img = document.createElement("img");
-      img.classList.add("imageFile");
-      img.file = file;
-      boxPhoto.appendChild(img);
-
-      // Crée un nouveau lecteur de fichier
-      const reader = new FileReader();
-
-      // Définit l'événement `onload` du lecteur de fichier
-      reader.onload = (e) => {
-        img.src = e.target.result;
-      };
-
-      // Lit le fichier et le convertit en une URL de données
-      reader.readAsDataURL(file);
-      console.log(file);
+    // Vérifie si le type de fichier commence par "image/"
+    if (!file.type.startsWith("image/")) {
+      // Si le type de fichier ne commence pas par "image/", continue
+      //continue;
     }
+
+    // Crée un nouvel élément `img`
+    const img = document.createElement("img");
+    img.classList.add("imageFile");
+    img.file = file;
+    boxPhoto.appendChild(img);
+
+    // Crée un nouveau lecteur de fichier
+    const reader = new FileReader();
+
+    // Définit l'événement `onload` du lecteur de fichier
+    reader.onload = (e) => {
+      img.src = e.target.result;
+    };
+
+    // Lit le fichier et le convertit en une URL de données
+    reader.readAsDataURL(file);
+    console.log(file);
+    //}
 
     //cacher les éléments ( icon, boutton, text) et afficher la croix
     iconPhoto.style.display = "none";
@@ -433,10 +431,13 @@ function inputFiles() {
       typePhoto.style.display = "flex";
       fileLabel.style.display = "flex";
       iconCross.style.display = "none";
-      imageFile.remove();
+      if (imageFile) {
+        imageFile.remove();
+      }
+
+      inputFile.value = "";
     });
   });
-  ajoutPhoto();
 }
 
 //fonction boutton disabled
@@ -455,8 +456,8 @@ const titleModal = document.getElementById("title");
 const select = document.getElementById("category");
 const inputFile = document.getElementById("file");
 titleModal.addEventListener("input", buttonDisabled);
-select.addEventListener("selected", buttonDisabled);
-inputFile.addEventListener("change", buttonDisabled);
+select.addEventListener("input", buttonDisabled);
+inputFile.addEventListener("input", buttonDisabled);
 
 //fonction comportement boutton
 function buttonDisabled() {
@@ -464,7 +465,7 @@ function buttonDisabled() {
   const inputFile = document.getElementById("file");
   const file = inputFile.files[0];
   const titleNotEmpty = titleModal.value !== "";
-  const optionNotNull = select.value !== "0";
+  const optionNotNull = select.value !== "";
 
   disabled();
 
@@ -472,7 +473,7 @@ function buttonDisabled() {
   if (file && titleNotEmpty && optionNotNull) {
     notDisabled();
     console.log("plus disabled");
-    console.log(file);
+    console.log(file.name);
     console.log(titleModal.value);
     console.log(select.value);
   } else {
@@ -485,34 +486,38 @@ function buttonDisabled() {
 }
 
 //fonction ajouter une photo
-function ajoutPhoto() {
+function ajoutWorks() {
   const titleModal = document.getElementById("title");
   const select = document.getElementById("category");
-  const buttonPhoto = document.getElementById("buttonPhoto");
   const message = document.getElementById("message");
+  const formAddWork = document.getElementById("form");
   const inputFile = document.getElementById("file");
 
-  buttonPhoto.addEventListener("submit", async function (e) {
+  formAddWork.addEventListener("submit", async function (e) {
     e.preventDefault();
     e.stopPropagation();
 
-    console.log(buttonPhoto);
+    const file = await inputFile.files[0];
+
+    console.log(formAddWork);
 
     addTitle = titleModal.value;
     addCategory = select.value;
-    addImageValue = e.target.result;
+    addImageValue = file.name;
+    console.log(addImageValue);
 
     const formData = new FormData();
     formData.append("image", addImageValue);
     formData.append("title", addTitle);
     formData.append("category", addCategory);
 
-    const monToken = sessionStorage.getItem("token");
+    const storedToken = sessionStorage.getItem("token");
+    console.log(storedToken);
 
     let response = await fetch("http://localhost:5678/api/works", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${monToken}`,
+        Authorization: `Bearer ${storedToken}`,
       },
       body: formData,
     });
@@ -530,6 +535,22 @@ function ajoutPhoto() {
       message.innerText = "Erreur dans le formulaire ";
     }
     this.reset();
+    const imageFile = document.querySelector(".imageFile");
+    const iconPhoto = document.querySelector(".icon-photo");
+    const typePhoto = document.querySelector(".type-photo");
+    const fileLabel = document.querySelector(".file-label");
+    const iconCross = document.querySelector(".icon-cross");
+
+    //afficher les éléments ( icon, boutton, text), cacher la croix et supprimer l'image
+    iconPhoto.style.display = "flex";
+    typePhoto.style.display = "flex";
+    fileLabel.style.display = "flex";
+    iconCross.style.display = "none";
+    if (imageFile) {
+      imageFile.remove();
+    }
+
+    inputFile.value = "";
 
     setTimeout(() => {
       message.innerText = "";
