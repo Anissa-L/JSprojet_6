@@ -330,7 +330,7 @@ function trash(figureModal) {
       // if HTTP-status is 200-299
       console.log(response);
 
-      alert("Photo supprimée avec succès");
+      alert("Works supprimée avec succès");
       getWorks(); //on actualise les galeries avec les works fraichement récupérer de l'api
     } else {
       alert("Échec de suppression");
