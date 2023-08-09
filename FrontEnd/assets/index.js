@@ -267,6 +267,29 @@ function creatModal() {
     modal = null;
 
     //reset modal ajout photo
+    const iconPhoto = document.querySelector(".icon-photo");
+    const typePhoto = document.querySelector(".type-photo");
+    const fileLabel = document.querySelector(".file-label");
+    const iconCross = document.querySelector(".icon-cross");
+    const galleryModal = document.querySelector(".galleryModal");
+    const photoModal = document.querySelector(".photoModal");
+    const arrowLeft = document.querySelector(".arrowLeft");
+
+    galleryModal.style.display = "flex";
+    photoModal.style.display = "none";
+    arrowLeft.style.display = "none";
+    //afficher les éléments ( icon, boutton, text), cacher la croix et supprimer l'image
+    iconPhoto.style.display = "flex";
+    typePhoto.style.display = "flex";
+    fileLabel.style.display = "flex";
+    iconCross.style.display = "none";
+
+    const imageFile = document.querySelector(".imageFile");
+    if (imageFile) {
+      imageFile.remove();
+    }
+
+    inputFile.value = "";
 
     const form = document.getElementById("form");
     form.reset();
@@ -503,7 +526,7 @@ function ajoutWorks() {
 
     addTitle = titleModal.value;
     addCategory = select.value;
-    addImageValue = file.name;
+    addImageValue = file;
     console.log(addImageValue);
 
     const formData = new FormData();
@@ -531,26 +554,26 @@ function ajoutWorks() {
       message.innerText = "Formulaire envoyé avec succès";
 
       getWorks(); //on actualise les galeries avec les works fraichement récupérer de l'api
+      this.reset();
+      const imageFile = document.querySelector(".imageFile");
+      const iconPhoto = document.querySelector(".icon-photo");
+      const typePhoto = document.querySelector(".type-photo");
+      const fileLabel = document.querySelector(".file-label");
+      const iconCross = document.querySelector(".icon-cross");
+
+      //afficher les éléments ( icon, boutton, text), cacher la croix et supprimer l'image
+      iconPhoto.style.display = "flex";
+      typePhoto.style.display = "flex";
+      fileLabel.style.display = "flex";
+      iconCross.style.display = "none";
+      if (imageFile) {
+        imageFile.remove();
+      }
+
+      inputFile.value = "";
     } else {
       message.innerText = "Erreur dans le formulaire ";
     }
-    this.reset();
-    const imageFile = document.querySelector(".imageFile");
-    const iconPhoto = document.querySelector(".icon-photo");
-    const typePhoto = document.querySelector(".type-photo");
-    const fileLabel = document.querySelector(".file-label");
-    const iconCross = document.querySelector(".icon-cross");
-
-    //afficher les éléments ( icon, boutton, text), cacher la croix et supprimer l'image
-    iconPhoto.style.display = "flex";
-    typePhoto.style.display = "flex";
-    fileLabel.style.display = "flex";
-    iconCross.style.display = "none";
-    if (imageFile) {
-      imageFile.remove();
-    }
-
-    inputFile.value = "";
 
     setTimeout(() => {
       message.innerText = "";
