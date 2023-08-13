@@ -266,7 +266,6 @@ function creatModal() {
       .removeEventListener("click", stopPropagation);
     modal = null;
 
-    //reset modal ajout photo
     const iconPhoto = document.querySelector(".icon-photo");
     const typePhoto = document.querySelector(".type-photo");
     const fileLabel = document.querySelector(".file-label");
